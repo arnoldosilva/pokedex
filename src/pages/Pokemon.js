@@ -1,50 +1,61 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Pokeapi from '../api/Pokeapi'
 import colors from '../styles/colors'
+import LinearGradient from 'react-native-linear-gradient'
 
 
-export default function Pokemon({route}) {
+export default function Pokemon({ route }) {
     const [data, setData] = useState('')
-    const [theme,setTheme] = useState({})
+    
+    const [theme, setTheme] = useState()
     useEffect(() => {
-        const {nome} = route.params 
-        if(nome){
+        const { nome } = route.params
+        if (nome) {
             catchThen(nome)
         }
     }, [])
 
-    function catchThen(nome){
+    function catchThen(nome) {
         Pokeapi.get(`/pokemon/${nome}`).then(
-            (response) =>{
+            (response) => {
                 setData(response.data)
-                console.log(response.data.types)
-                setStyle(response.data.types[0].type.name)
-            }).catch((error)=>console.log(error))
+                
+                setStyle(response.data.types)
+            }).catch((error) => console.log(error))
     }
-    function setStyle(type){
-        let color ='#FFF'
-        for (const [key, value] of Object.entries(colors.backgroundColor)){
-            if(key == type){
-                color = value
+    function setStyle(types) {
+        let pokemonTypes = []
+        types.forEach(type => pokemonTypes.push(type.type.name))
+
+        let pokemonColors = []
+        pokemonTypes.forEach(pokemonType => {
+            for (const [key, value] of Object.entries(colors.backgroundColor)) {
+                if (key == pokemonType) {
+                    pokemonColors.push(value)
+                }
             }
-        }
-        setTheme({
-            backgroundColor:color
         })
-        
+        if(pokemonColors.length < 2){
+            pokemonColors.push('#fff')
+        }
+        setTheme(pokemonColors)
     }
 
     return (
-        <View style={[styles.container,theme]}>
+        <LinearGradient 
+            style={styles.container}
+            colors={theme?theme:['#fff','#fff']}>
             <Text>Nome:</Text>
-        </View>
+        </LinearGradient>
+
+
     )
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        
+    container: {
+        flex: 1,
+
     }
 })
