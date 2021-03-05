@@ -49,7 +49,10 @@ export default function Home() {
         bounces={true}
         data={data}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => <PokemonButtom data={item} />}
+        renderItem={({ item }) => {
+          let pokeNumber = item.url.split('https://pokeapi.co/api/v2/pokemon/')[1]
+          console.log(pokeNumber.split('/'))
+          return <PokemonButtom data={item} />}}
       />
     </View>
 

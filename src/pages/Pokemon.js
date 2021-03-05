@@ -6,8 +6,8 @@ import {
     Image,
 } from 'react-native'
 import Pokeapi from '../api/Pokeapi'
-import colors from '../styles/colors'
-import LinearGradient from 'react-native-linear-gradient'
+
+
 import Stats from '../components/Stats'
 import Abilities from '../components/Abilities'
 import Name from '../components/Name'
@@ -24,7 +24,6 @@ export default function Pokemon({ route }) {
         height: 0,
     })
 
-    const [theme, setTheme] = useState()
     useEffect(() => {
         const { nome } = route.params
         if (nome) {
@@ -42,33 +41,11 @@ export default function Pokemon({ route }) {
                     height: response.data.height,
                     stats: response.data.stats,
                 })
-                
-                setStyle(response.data.types)
             }).catch((error) => console.log(error))
     }
-    function setStyle(types) {
-        let pokemonTypes = []
-        types.forEach(type => pokemonTypes.push(type.type.name))
-
-        let pokemonColors = []
-        pokemonTypes.forEach(pokemonType => {
-            for (const [key, value] of Object.entries(colors.backgroundColor)) {
-                if (key == pokemonType) {
-                    pokemonColors.push(value)
-                }
-            }
-        })
-        if (pokemonColors.length < 2) {
-            pokemonColors.push('#fff')
-        }
-        setTheme(pokemonColors)
-    }
-
-
+   
     return (
-        <LinearGradient
-            style={styles.container}
-            colors={theme ? theme : ['#fff', '#fff']}>
+        <View style={styles.container}>
             <Image style={styles.imagePokemon} />
             <View style={styles.card}>
                 <View style={styles.info}>
@@ -82,7 +59,7 @@ export default function Pokemon({ route }) {
                 
                 </View>
             </View>
-        </LinearGradient>
+        </View>
     )
 }
 
