@@ -22,6 +22,7 @@ export default function Home() {
     
     Pokeapi.get('/pokemon')
       .then((response) => {
+        // console.log(response.data)
         const listPokemon = []
           setNext(response.data.next.slice('https://pokeapi.co/api/v2/pokemon?')[1] )
           // setPrevious(response.data.previous.slice('https://pokeapi.co/api/v2/pokemon?')[1])
