@@ -11,6 +11,8 @@ import LinearGradient from 'react-native-linear-gradient'
 import Stats from '../components/Stats'
 import Abilities from '../components/Abilities'
 import Name from '../components/Name'
+import Height from '../components/Height'
+import Weight from '../components/Weight'
 
 
 export default function Pokemon({ route }) {
@@ -73,8 +75,11 @@ export default function Pokemon({ route }) {
                 <Name name={data.name}/>
                 <Stats stats={data.stats}/>
                 <Abilities abilities={data.abilities}/>
-                <Text>{'Altura: ' + data.height}</Text>
-                <Text>{'Peso:' + data.weight}</Text>
+                <View style={styles.line}>
+                    <Height height={data.height}/>
+                    <Weight weight={data.weight} />
+                </View>
+                
                 </View>
             </View>
         </LinearGradient>
@@ -100,5 +105,9 @@ const styles = StyleSheet.create({
     info:{
         marginTop:20,
         marginHorizontal:10
+    },
+    line:{
+        justifyContent:'center',
+        flexDirection:'row'
     }
 })

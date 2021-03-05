@@ -4,11 +4,14 @@ import { StyleSheet, Text, View,FlatList } from 'react-native'
 
 export default function Stats({stats}) {
     return (
-        <FlatList 
+        <View>
+            <Text style={styles.statsTitle}>Stats</Text>
+            <FlatList 
             data={stats}
             keyExtractor={(_,index)=>index.toString()}
             renderItem={({item})=> renderStats(item)}
-        />
+            />
+        </View>
     )
 }
 
@@ -16,7 +19,7 @@ export default function Stats({stats}) {
 function renderStats(status) {
     return(
         <View style={styles.line}>
-            <Text style={styles.stat}>{status.stat.name}</Text>
+            <Text style={styles.stat}>{capitalizeFirstLetter(status.stat.name)}</Text>
             <View style={styles.bar}>
 
             </View>
@@ -29,6 +32,11 @@ function renderStats(status) {
 const styles = StyleSheet.create({
     line:{
         flexDirection:'row'
+    },
+    statsTitle:{
+        marginVertical:5,
+        paddingLeft:10,
+        fontSize:20,
     },
     bar:{
         marginHorizontal:15,
@@ -48,3 +56,7 @@ const styles = StyleSheet.create({
         paddingRight:10,
     },
 })
+
+function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}

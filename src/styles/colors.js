@@ -60,3 +60,11 @@ backgroundColor:{
   
   export default colors;
   
+
+  let testColors ={
+      darkMode: '#3a4750',
+      darkMode2: '#303841',
+      darkMode3:'#222831',
+
+      lightMode:'#EEEEEE',
+  }
