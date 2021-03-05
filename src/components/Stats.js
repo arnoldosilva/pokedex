@@ -1,5 +1,10 @@
-import React from 'react'
-import { StyleSheet, Text, View,FlatList } from 'react-native'
+import React,{useState, useRef, useEffect} from 'react'
+import { StyleSheet,
+        Text,
+        View,
+        FlatList,
+        Animated
+    } from 'react-native'
 
 
 export default function Stats({stats}) {
@@ -17,6 +22,24 @@ export default function Stats({stats}) {
 
 
 function renderStats(status) {
+    const [statusValue, setstatusValue] = useState(0)
+    const animation = useRef(new Animated.Value(0)).current
+    
+
+    useEffect(() => {
+        setstatusValue(status.base_stat)
+        animeStatusValue(statusValue)
+    }, [input])
+
+    function animeStatusValue(value) {
+        Animated.spring(animation,{
+            useNativeDriver:true,
+            toValue: value,
+            friction:5
+        })
+    } 
+
+
     return(
         <View style={styles.line}>
             <Text style={styles.stat}>{capitalizeFirstLetter(status.stat.name)}</Text>
@@ -34,9 +57,9 @@ const styles = StyleSheet.create({
         flexDirection:'row'
     },
     statsTitle:{
-        marginVertical:5,
         paddingLeft:10,
-        fontSize:20,
+        fontSize:18,
+        fontFamily:'Poppins-Light',
     },
     bar:{
         marginHorizontal:15,
@@ -46,8 +69,9 @@ const styles = StyleSheet.create({
         flex:1,
     },
     stat:{
-        fontSize:20,
+        fontSize:18,
         paddingLeft:10,
+        fontFamily:'Poppins-Regular',
     },
     statValue:{
         fontSize:22,

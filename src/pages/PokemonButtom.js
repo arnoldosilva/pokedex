@@ -7,19 +7,20 @@ import {
     View,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { useTheme } from '@react-navigation/native';
 
-
-
-export default function PokemonButtom({ data}) {
+export default function PokemonButtom({ data, number}) {
+    
+    const { colors } = useTheme();
 
     const navigation = useNavigation()
 
     return (
         <TouchableOpacity
-            onPress={()=>{navigation.navigate('Pokemon',{nome:data.name} )}} 
-            style={styles.container}>
+            onPress={()=>{navigation.navigate('Pokemon',{nome:data.name, number:'Pokemon #'+number} )}} 
+            style={[styles.container, {backgroundColor:colors.card}]}>
                 <View style={styles.block}>
-                    <Text style={styles.pokemonName}>{data.name}</Text>
+                    <Text style={[styles.pokemonName,{color:colors.text}]}>{data.name}</Text>
                     <Image 
                         style={styles.pokemonImage}
                         source={{uri:`https://projectpokemon.org/images/normal-sprite/${data.name}.gif`}}
@@ -34,19 +35,20 @@ const styles = StyleSheet.create({
     container: {
         alignSelf:'center',
         width: '95%',
-        height: 120,
+        height: 130,
         fontSize: 30,
         marginBottom: 15,
-        backgroundColor:'#EEEEEE',
         borderRadius:10,
         paddingRight:10,
         elevation:8,
+        justifyContent:'center',
     },
     pokemonName: {
         flex:2,
-        fontSize: 30,
+        fontSize: 25,
         textAlignVertical: 'center',
         paddingLeft: 10,
+        fontFamily:'Poppins-Black',
     },
     block:{
         flexDirection:'row'

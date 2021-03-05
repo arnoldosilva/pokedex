@@ -7,8 +7,8 @@ import {
 import Pokeapi from '../api/Pokeapi'
 import PokemonButtom from './PokemonButtom'
 
-export default function Home() {
 
+export default function Home() {
 
   const [data, setData] = useState([])
   const [next, setNext] = useState('')
@@ -50,9 +50,8 @@ export default function Home() {
         data={data}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => {
-          let pokeNumber = item.url.split('https://pokeapi.co/api/v2/pokemon/')[1]
-          console.log(pokeNumber.split('/'))
-          return <PokemonButtom data={item} />}}
+          let pokeNumber = (item.url.split('https://pokeapi.co/api/v2/pokemon/')[1]).split('/')[0]
+          return <PokemonButtom data={item} number={pokeNumber}/>}}
       />
     </View>
 

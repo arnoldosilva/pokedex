@@ -26,13 +26,15 @@ function renderAbilities({ ability }) {
 const styles = StyleSheet.create({
 
     abilitiesTitle: {
-        marginVertical: 5,
+        
         paddingLeft: 10,
-        fontSize: 20,
+        fontSize: 18,
+        fontFamily:'Poppins-Light',
     },
     ability:{
         fontSize:18,
         paddingLeft: 10,
+        fontFamily:'Poppins-Regular',
     }
 })
 

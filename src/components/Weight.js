@@ -13,13 +13,16 @@ export default function Weight({weight}) {
 const styles = StyleSheet.create({
     container:{
         marginHorizontal:10,
+        
     },
     weightValue:{
         textAlign:'center',
-        fontSize:25,
+        fontSize:18,
+        fontFamily:'Poppins-SemiBold',
     },
     weightText:{
-        fontSize:20,
+        fontSize:18,
         textAlign:'center',
+        fontFamily:'Poppins-Light',
     }
 })

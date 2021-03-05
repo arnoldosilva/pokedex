@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import {
     StyleSheet,
-    Text,
     View,
     Image,
 } from 'react-native'
 import Pokeapi from '../api/Pokeapi'
-
+import { useTheme } from '@react-navigation/native';
 
 import Stats from '../components/Stats'
 import Abilities from '../components/Abilities'
@@ -16,6 +15,7 @@ import Weight from '../components/Weight'
 
 
 export default function Pokemon({ route }) {
+    const { colors } = useTheme();
    
     const [data, setData] = useState({
         name: '',
@@ -47,7 +47,7 @@ export default function Pokemon({ route }) {
     return (
         <View style={styles.container}>
             <Image style={styles.imagePokemon} />
-            <View style={styles.card}>
+            <View style={[styles.card,{backgroundColor:colors.card}]}>
                 <View style={styles.info}>
                 <Name name={data.name}/>
                 <Stats stats={data.stats}/>
@@ -75,15 +75,16 @@ const styles = StyleSheet.create({
     card: {
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        backgroundColor: '#fff',
         marginHorizontal: 10,
         flex:1,
+        elevation:20,
     },
     info:{
         marginTop:20,
         marginHorizontal:10
     },
     line:{
+        
         justifyContent:'center',
         flexDirection:'row'
     }

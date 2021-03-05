@@ -16,10 +16,12 @@ const styles = StyleSheet.create({
     },
     heightValue:{
         textAlign:'center',
-        fontSize:25,
+        fontSize:18,
+        fontFamily:'Poppins-SemiBold',
     },
     heightText:{
-        fontSize:20,
+        fontSize:18,
         textAlign:'center',
+        fontFamily:'Poppins-Light',
     }
 })
