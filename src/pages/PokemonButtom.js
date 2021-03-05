@@ -9,16 +9,16 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '@react-navigation/native';
 
+
+
 export default function PokemonButtom({ data, number}) {
-    
-    const { colors } = useTheme();
 
     const navigation = useNavigation()
 
     return (
         <TouchableOpacity
             onPress={()=>{navigation.navigate('Pokemon',{nome:data.name, number:'Pokemon #'+number} )}} 
-            style={[styles.container, {backgroundColor:colors.card}]}>
+            style={styles.container}>
                 <View style={styles.block}>
                     <Text style={[styles.pokemonName,{color:colors.text}]}>{data.name}</Text>
                     <Image 
