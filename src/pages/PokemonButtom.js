@@ -10,13 +10,13 @@ import { useNavigation } from '@react-navigation/native'
 
 
 
-export default function PokemonButtom({ data}) {
+export default function PokemonButtom({ data, number}) {
 
     const navigation = useNavigation()
 
     return (
         <TouchableOpacity
-            onPress={()=>{navigation.navigate('Pokemon',{nome:data.name} )}} 
+            onPress={()=>{navigation.navigate('Pokemon',{nome:data.name, number:'Pokemon #'+number} )}} 
             style={styles.container}>
                 <View style={styles.block}>
                     <Text style={styles.pokemonName}>{data.name}</Text>

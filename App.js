@@ -17,9 +17,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator >
         <Stack.Screen name='DrawerManager' component={DrawerManager} options={{ headerShown: false }} />
-        <Stack.Screen name='Pokemon' component={Pokemon} options={{
-          
-        }} />
+        <Stack.Screen name='Pokemon' component={Pokemon} options={
+          ({ route }) => ({ title: route.params.number })
+        }/>
       </Stack.Navigator>
     </NavigationContainer>
   )
