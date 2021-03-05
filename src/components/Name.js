@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     text:{
         fontSize:35,
         fontWeight:'bold',
+        paddingLeft:10,
     }
 })
 

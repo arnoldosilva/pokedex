@@ -5,7 +5,7 @@ import {
   FlatList,
 } from 'react-native'
 import Pokeapi from '../api/Pokeapi'
-import PokemonResume from './PokemonResume'
+import PokemonButtom from './PokemonButtom'
 
 export default function Home() {
 
@@ -49,7 +49,7 @@ export default function Home() {
         bounces={true}
         data={data}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => <PokemonResume data={item} />}
+        renderItem={({ item }) => <PokemonButtom data={item} />}
       />
     </View>
 

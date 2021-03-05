@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 
 
 
-export default function Pokemon({ data}) {
+export default function PokemonButtom({ data}) {
 
     const navigation = useNavigation()
 
@@ -36,12 +36,11 @@ const styles = StyleSheet.create({
         width: '95%',
         height: 120,
         fontSize: 30,
-        marginBottom: 10,
-        backgroundColor:'#ccc',
+        marginBottom: 15,
+        backgroundColor:'#EEEEEE',
         borderRadius:10,
-        paddingVertical:5,
-        paddingRight:10
-        
+        paddingRight:10,
+        elevation:8,
     },
     pokemonName: {
         flex:2,
