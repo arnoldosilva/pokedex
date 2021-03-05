@@ -13,7 +13,7 @@ export default function Name({name}) {
 const styles = StyleSheet.create({
     text:{
         fontSize:35,
-        paddingLeft:10,
+        paddingLeft:50,
         fontFamily:'Poppins-SemiBold',
     }
 })

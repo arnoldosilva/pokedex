@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {
     StyleSheet,
     Text,
@@ -6,26 +6,35 @@ import {
     Image,
     View,
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+
 import { useTheme } from '@react-navigation/native';
+import { SharedElement } from 'react-navigation-shared-element';
+import { useNavigation } from '@react-navigation/native'
 
-
-
-export default function PokemonButtom({ data, number}) {
-
+export default function PokemonButtom({ data, number }) {
+    
     const navigation = useNavigation()
-
+    const [pokeImage, setpokeImage] = useState({uri: `https://projectpokemon.org/images/normal-sprite/${data.name}.gif`})
+    
+    const colors = useTheme()
+    
     return (
         <TouchableOpacity
-            onPress={()=>{navigation.navigate('Pokemon',{nome:data.name, number:'Pokemon #'+number} )}} 
+        onPress={()=>{navigation.navigate('Pokemon',{
+            nome:data.name,
+            number:'Pokemon #'+number,
+            image:pokeImage})
+        }} 
             style={styles.container}>
-                <View style={styles.block}>
-                    <Text style={[styles.pokemonName,{color:colors.text}]}>{data.name}</Text>
-                    <Image 
+            <View style={styles.block} >
+                <Text style={[styles.pokemonName, { color: colors.text }]}>{data.name}</Text>
+                    <SharedElement id={number}>
+                    <Image
                         style={styles.pokemonImage}
-                        source={{uri:`https://projectpokemon.org/images/normal-sprite/${data.name}.gif`}}
+                        source={pokeImage}
                     />
-                </View>
+               </SharedElement>                
+            </View>
 
         </TouchableOpacity>
     )
@@ -33,32 +42,37 @@ export default function PokemonButtom({ data, number}) {
 
 const styles = StyleSheet.create({
     container: {
-        alignSelf:'center',
+        alignSelf: 'center',
         width: '95%',
-        height: 130,
+        height: 150,
         fontSize: 30,
+        paddingTop:10,
         marginBottom: 15,
-        borderRadius:10,
-        paddingRight:10,
-        elevation:8,
-        justifyContent:'center',
+        borderRadius: 10,
+        paddingRight: 10,
+        elevation: 8,
+        justifyContent:'center'
     },
     pokemonName: {
-        flex:2,
+        flex: 2,
         fontSize: 25,
         textAlignVertical: 'center',
-        paddingLeft: 10,
-        fontFamily:'Poppins-Black',
+        paddingLeft: 30,
+        fontFamily: 'Poppins-Black',
+        opacity: .7,
+        textShadowOffset: { width: 2, height: 2 },
+        textShadowRadius: 2,
+        
     },
-    block:{
-        flexDirection:'row'
+    block: {
+        flexDirection: 'row'
     },
-    pokemonImage:{
-        flex:1,
-        alignContent:'flex-end',
-        width:110,
-        height:110,
-        resizeMode:'contain',
-        paddingRight:20,
+    pokemonImage: {
+        flex: 1,
+        alignContent: 'flex-end',
+        width: 110,
+        height: 110,
+        resizeMode: 'contain',
+        paddingRight: 20,
     }
 })

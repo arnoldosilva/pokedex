@@ -6,10 +6,11 @@ import {
 } from 'react-native'
 import Pokeapi from '../api/Pokeapi'
 import PokemonButtom from './PokemonButtom'
+import Pokemon from './Pokemon'
+
 
 
 export default function Home() {
-
   const [data, setData] = useState([])
   const [next, setNext] = useState('')
   const [previous, setPrevious] = useState('')

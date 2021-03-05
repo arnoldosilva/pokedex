@@ -12,22 +12,25 @@ import Abilities from '../components/Abilities'
 import Name from '../components/Name'
 import Height from '../components/Height'
 import Weight from '../components/Weight'
-
+import { SharedElement } from 'react-navigation-shared-element';
 
 export default function Pokemon({ route }) {
     const { colors } = useTheme();
-   
+    const [number,setNumber] = useState(route.params.number)
+    const [pokeImage, setpokeImage] = useState()
     const [data, setData] = useState({
         name: '',
         abilities: [],
         weight: 0,
         height: 0,
     })
+   
 
     useEffect(() => {
-        const { nome } = route.params
+        const { nome, image } = route.params
         if (nome) {
             catchThen(nome)
+            setpokeImage(image)
         }
     }, [])
 
@@ -43,20 +46,24 @@ export default function Pokemon({ route }) {
                 })
             }).catch((error) => console.log(error))
     }
-   
+
     return (
         <View style={styles.container}>
-            <Image style={styles.imagePokemon} />
-            <View style={[styles.card,{backgroundColor:colors.card}]}>
+            <SharedElement id={number}>
+                <Image style={styles.imagePokemon}
+                    source={pokeImage}
+                />
+            </SharedElement>
+            <View style={[styles.card, { backgroundColor: colors.card }]}>
                 <View style={styles.info}>
-                <Name name={data.name}/>
-                <Stats stats={data.stats}/>
-                <Abilities abilities={data.abilities}/>
-                <View style={styles.line}>
-                    <Height height={data.height}/>
-                    <Weight weight={data.weight} />
-                </View>
-                
+                    <Name name={data.name} />
+                    <Stats stats={data.stats} />
+                    <Abilities abilities={data.abilities} />
+                    <View style={styles.line}>
+                        <Height height={data.height} />
+                        <Weight weight={data.weight} />
+                    </View>
+
                 </View>
             </View>
         </View>
@@ -71,21 +78,22 @@ const styles = StyleSheet.create({
     imagePokemon: {
         width: '100%',
         height: 250,
+        resizeMode:'contain'
     },
     card: {
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         marginHorizontal: 10,
-        flex:1,
-        elevation:20,
+        flex: 1,
+        elevation: 20,
     },
-    info:{
-        marginTop:20,
-        marginHorizontal:10
+    info: {
+        marginTop: 20,
+        marginHorizontal: 10
     },
-    line:{
-        
-        justifyContent:'center',
-        flexDirection:'row'
+    line: {
+
+        justifyContent: 'center',
+        flexDirection: 'row'
     }
 })
