@@ -24,27 +24,30 @@ export default function Home() {
 
   function catchAllThen() {
    setRefreshing(true)
-    console.log(refreshing)
-    
-    
     Pokeapi.get(`pokemon?offset=${previous}&limit=${next}`)
       .then((response) => {
         if (data.length > 0) {
           console.log('api ', response.data.results[next-1].name)
           console.log('local ', data[data.length -1].name)
+          
           if (response.data.results[next-1].name ==
-            data[data.length -1].name) {
+            data[data.length -1].name ||
+            response.data.results[next-1].name == data[data.length -2].name
+            ) {
             return
+          }
+          if (data.length > 40) {
+            setData(data.slice(19))
           }
         }
           setData(data.concat(response.data.results))
           
       })
       .catch((error) => {
-        Alert.alert('Erro', 'Não foo possível carregar')
+        Alert.alert('Erro', 'Não foi possível carregar')
         console.log(error);
       }).finally(()=>{
-        console.log(refreshing)
+        
         setRefreshing(false)
       })
   }
@@ -66,8 +69,9 @@ export default function Home() {
     <View style={styles.container}>
 
       <FlatList
+      refreshing={refreshing}
       onEndReached={getNext}
-      onEndReachedThreshold={.3}
+      onEndReachedThreshold={3}
         bounces={true}
         data={data}
         keyExtractor={(_, index) => index.toString()}

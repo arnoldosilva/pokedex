@@ -1,11 +1,12 @@
 import React ,{useEffect, useRef} from 'react'
-import { StyleSheet, Text, View, Animated } from 'react-native'
+import { StyleSheet, Text, View, Animated, LogBox } from 'react-native'
 
 export default function AnimatedStats({status}) {
     
         const animation = useRef(new Animated.Value(0)).current
     
         useEffect(() => {
+            LogBox.ignoreLogs(['Animated: `useNativeDriver`'])
             animeStatusValue()
         }, [])
     
