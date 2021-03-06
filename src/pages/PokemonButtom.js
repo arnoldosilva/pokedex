@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {
     StyleSheet,
     Text,
@@ -8,32 +8,31 @@ import {
 } from 'react-native'
 
 import { useTheme } from '@react-navigation/native';
-import { SharedElement } from 'react-navigation-shared-element';
+
 import { useNavigation } from '@react-navigation/native'
 
-export default function PokemonButtom({ data, number }) {
+export default function PokemonButtom({ name, number }) {
     
     const navigation = useNavigation()
-    const [pokeImage, setpokeImage] = useState({uri: `https://projectpokemon.org/images/normal-sprite/${data.name}.gif`})
-    
-    const colors = useTheme()
+
+    const {colors} = useTheme()
     
     return (
         <TouchableOpacity
         onPress={()=>{navigation.navigate('Pokemon',{
-            nome:data.name,
-            number:'Pokemon #'+number,
-            image:pokeImage})
+            name:name,
+            title:'Pokemon #'+number,
+            number: number})
         }} 
             style={styles.container}>
             <View style={styles.block} >
-                <Text style={[styles.pokemonName, { color: colors.text }]}>{data.name}</Text>
-                    <SharedElement id={number}>
+                <Text style={[styles.pokemonName, { color: colors.text}]}>{name}</Text>
+                   
                     <Image
                         style={styles.pokemonImage}
-                        source={pokeImage}
+                        source={{uri:`https://projectpokemon.org/images/normal-sprite/${name}.gif`}}
                     />
-               </SharedElement>                
+                         
             </View>
 
         </TouchableOpacity>
@@ -44,13 +43,12 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: 'center',
         width: '95%',
-        height: 150,
+        height: 130,
         fontSize: 30,
         paddingTop:10,
-        marginBottom: 15,
-        borderRadius: 10,
+        borderRadius: 5,
         paddingRight: 10,
-        elevation: 8,
+        elevation: 6,
         justifyContent:'center'
     },
     pokemonName: {
@@ -70,8 +68,8 @@ const styles = StyleSheet.create({
     pokemonImage: {
         flex: 1,
         alignContent: 'flex-end',
-        width: 110,
-        height: 110,
+        width: 90,
+        height: 90,
         resizeMode: 'contain',
         paddingRight: 20,
     }

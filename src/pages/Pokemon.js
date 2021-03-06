@@ -12,12 +12,11 @@ import Abilities from '../components/Abilities'
 import Name from '../components/Name'
 import Height from '../components/Height'
 import Weight from '../components/Weight'
-import { SharedElement } from 'react-navigation-shared-element';
+
 
 export default function Pokemon({ route }) {
     const { colors } = useTheme();
-    const [number,setNumber] = useState(route.params.number)
-    const [pokeImage, setpokeImage] = useState()
+    
     const [data, setData] = useState({
         name: '',
         abilities: [],
@@ -27,15 +26,13 @@ export default function Pokemon({ route }) {
    
 
     useEffect(() => {
-        const { nome, image } = route.params
-        if (nome) {
-            catchThen(nome)
-            setpokeImage(image)
-        }
+        const {name,number} = route.params
+        catchThen(name, number)
     }, [])
 
-    function catchThen(nome) {
-        Pokeapi.get(`/pokemon/${nome}`).then(
+    function catchThen(name, number) {
+        
+        Pokeapi.get(`/pokemon/${name}`).then(
             (response) => {
                 setData({
                     name: response.data.name,
@@ -43,17 +40,18 @@ export default function Pokemon({ route }) {
                     weight: response.data.weight,
                     height: response.data.height,
                     stats: response.data.stats,
+                    number: number
                 })
             }).catch((error) => console.log(error))
     }
 
     return (
         <View style={styles.container}>
-            <SharedElement id={number}>
+           
                 <Image style={styles.imagePokemon}
-                    source={pokeImage}
+                    source={{uri:`https://projectpokemon.org/images/normal-sprite/${data.name}.gif`}}
                 />
-            </SharedElement>
+
             <View style={[styles.card, { backgroundColor: colors.card }]}>
                 <View style={styles.info}>
                     <Name name={data.name} />
@@ -76,9 +74,12 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     imagePokemon: {
+        
         width: '100%',
-        height: 250,
-        resizeMode:'contain'
+        height: 220,
+        resizeMode:'contain',
+        paddingVertical:10,
+        
     },
     card: {
         borderTopLeftRadius: 20,

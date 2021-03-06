@@ -1,11 +1,11 @@
 import 'react-native-gesture-handler';
 import React from 'react'
-import { useColorScheme } from 'react-native'
+import { useColorScheme, } from 'react-native'
 import DrawerManager from './src/DrawerManager'
 import Pokemon from './src/pages/Pokemon'
 
 
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer,DefaultTheme } from '@react-navigation/native'
 
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 
@@ -14,24 +14,15 @@ const Stack = createSharedElementStackNavigator()
 
 export default function App() {
   const scheme = useColorScheme();
-
+  
   return (
-    <NavigationContainer theme={scheme === 'dark' ? darkTheme : li}>
+    <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
       <Stack.Navigator >
         <Stack.Screen name='DrawerManager' component={DrawerManager} options={{ headerShown: false }} />
         <Stack.Screen name='Pokemon'
           component={Pokemon}
-          sharedElementsConfig={
-            (route) => {
-              const { image } = route.params
-              return [{
-                id: 'numero',
-                animation: 'move',
-                image: image
-              }]
-            }}
           options={
-            ({ route }) => ({ title: route.params.number })
+            ({ route }) => ({ title: route.params.title })
           } />
       </Stack.Navigator>
     </NavigationContainer>
@@ -39,19 +30,21 @@ export default function App() {
 }
 
 const darkTheme = {
+  ...DefaultTheme,
+  dark:true,
   colors: {
-    primary: '#FFF',
     background: '#222831',
-    card: '#303841',
-    text: '#FFF',
     border: '#e2e2e2',
+    card: '#303841',
     notification: 'rgb(255, 69, 58)',
+    text: '#FFF',
   },
 };
 
 const lightTheme = {
+  ...DefaultTheme,
+  dark:false,
   colors: {
-    primary: '#FFF',
     background: '#FEFEFE',
     card: '#EEEEEE',
     text: 'rgba(23, 23, 27, 0.6)',

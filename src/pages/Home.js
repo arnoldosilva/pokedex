@@ -12,23 +12,20 @@ import Pokemon from './Pokemon'
 
 export default function Home() {
   const [data, setData] = useState([])
-  const [next, setNext] = useState('')
-  const [previous, setPrevious] = useState('')
+  const [next, setNext] = useState(20)
+  const [previous, setPrevious] = useState(0)
 
   useEffect(() => {
     catchAllThen()
   }, [])
 
-  function catchAllThen() {
-    
-    Pokeapi.get('/pokemon')
+  function catchAllThen(params) {
+
+    Pokeapi.get('pokemon?offset=40&limit=60')
       .then((response) => {
-        // console.log(response.data)
-        const listPokemon = []
-          setNext(response.data.next.slice('https://pokeapi.co/api/v2/pokemon?')[1] )
-          // setPrevious(response.data.previous.slice('https://pokeapi.co/api/v2/pokemon?')[1])
-          response.data.results.map(pokemon => listPokemon.push(pokemon))
-          setData(listPokemon)
+        //  console.log(response.data)
+          
+          setData(data.concat(response.data.results))
       })
       .catch((error) => {
         console.log(error);
@@ -36,23 +33,25 @@ export default function Home() {
   }
 
   function getNext() {
-
+    // catchAllThen(next)
   }
 
   function getPrevious() {
-
+    // catchAllThen(previous)
   }
 
   return (
 
     <View style={styles.container}>
       <FlatList
+      onEndReached={getNext}
+      onEndReachedThreshold={0.5}
         bounces={true}
         data={data}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => {
           let pokeNumber = (item.url.split('https://pokeapi.co/api/v2/pokemon/')[1]).split('/')[0]
-          return <PokemonButtom data={item} number={pokeNumber}/>}}
+          return <PokemonButtom  name={item.name} number={pokeNumber}/>}}
       />
     </View>
 

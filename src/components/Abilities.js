@@ -1,24 +1,26 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { useTheme } from '@react-navigation/native';
 
 
 export default function Abilities({ abilities }) {
+    const {colors} = useTheme()
     return (
         <View>
-            <Text style={styles.abilitiesTitle}>Abilities</Text>
+            <Text style={[styles.abilitiesTitle,{color:colors.text}]}>Abilities</Text>
             <FlatList
                 data={abilities}
                 keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item }) => renderAbilities(item)}
+                renderItem={({ item }) => renderAbilities(item, colors.text)}
             />
         </View>
     )
 }
 
-function renderAbilities({ ability }) {
+function renderAbilities({ ability , textColor }) {
     return (
         <View>
-            <Text style={styles.ability}>{'- '+ capitalizeFirstLetter(ability.name)}</Text>
+            <Text style={[styles.ability, {color: textColor}]}>{'- '+ capitalizeFirstLetter(ability.name)}</Text>
         </View>
     )
 }
